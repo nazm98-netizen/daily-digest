@@ -1,0 +1,37 @@
+name: Daily Digest
+
+on:
+  schedule:
+    # 7am UTC = adjust for your timezone:
+    # PST (UTC-8): 15:00 UTC → "0 15 * * *"
+    # EST (UTC-5): 12:00 UTC → "0 12 * * *"
+    # GMT (UTC+0): 07:00 UTC → "0 7 * * *"
+    - cron: "0 7 * * *"
+
+  # Allow manual trigger from GitHub Actions UI
+  workflow_dispatch:
+
+jobs:
+  send-digest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate and send digest
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+        run: node generate.js

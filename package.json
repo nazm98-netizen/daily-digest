@@ -1,0 +1,15 @@
+{
+  "name": "daily-digest",
+  "version": "1.0.0",
+  "description": "AI-powered daily news digest email",
+  "type": "module",
+  "main": "generate.js",
+  "scripts": {
+    "start": "node generate.js",
+    "test": "node generate.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "resend": "^4.0.0"
+  }
+}
