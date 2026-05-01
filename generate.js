@@ -46,7 +46,7 @@ async function fetchSection(section) {
   console.log(`Fetching: ${section.label}...`);
 
   const response = await anthropic.messages.create({
-    model: "claude-sonnet-4-5",
+    model: "claude-haiku-4-5-20251001",
     max_tokens: 1500,
     tools: [{ type: "web_search_20250305", name: "web_search" }],
     messages: [
@@ -267,7 +267,7 @@ async function main() {
   for (const section of SECTIONS) {
     const data = await fetchSection(section);
     results.push({ section, data });
-    await new Promise(resolve => setTimeout(resolve, 60000));
+    await new Promise(resolve => setTimeout(resolve, 15000));
   }
 
   console.log("✅ All sections fetched. Building HTML...");
