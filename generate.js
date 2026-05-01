@@ -267,7 +267,7 @@ async function main() {
   for (const section of SECTIONS) {
     const data = await fetchSection(section);
     results.push({ section, data });
-    await new Promise(resolve => setTimeout(resolve, 15000));
+    await new Promise(resolve => setTimeout(resolve, 60000));
   }
 
   console.log("✅ All sections fetched. Building HTML...");
